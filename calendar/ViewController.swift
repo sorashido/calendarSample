@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         /*画面の設定*/
         //UIViewController.viewの座標取得
         let x:CGFloat = self.view.bounds.origin.x
-        let y:CGFloat = self.view.bounds.origin.y+70
+        let y:CGFloat = self.view.bounds.origin.y+50
         
         //UIViewController.viewの幅と高さを取得
         let width:CGFloat = self.view.bounds.width
@@ -53,13 +53,6 @@ class ViewController: UIViewController {
         
         /*年月の表示*/
 //        headerTitle.text = changeHeaderTitle(currentMonth.selectedDate as Date)
-        
-        // 端末に保存されている情報を読み込む
-//        calendarService = GTLServiceCalendar.init()
-//        calendarService?.authorizer = GTMOAuth2ViewControllerTouch.authForGoogleFromKeychainForName(
-//            Info.KeychainItemName,
-//            clientID: Info.ClientID,
-//            clientSecret: Info.ClientSecret)
     }
     
     override func didReceiveMemoryWarning() {

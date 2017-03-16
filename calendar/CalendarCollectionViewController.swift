@@ -12,7 +12,7 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
     var calendarCollectionView:UICollectionView!
     let dateManager = DateManager()
     let daysPerWeek: Int = 7
-    let cellMargin: CGFloat = 0.5
+    let cellMargin: CGFloat = 0.3
     var selectedDate = Date()
     let weekArray = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     
@@ -28,16 +28,8 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
         let layout = UICollectionViewFlowLayout()
         
         // コレクションビュー作成
-        //UIViewController.viewの座標取得
-        let x:CGFloat = frame.origin.x
-        let y:CGFloat = frame.origin.y+20
-        
-        //UIViewController.viewの幅と高さを取得
-        let width:CGFloat = frame.width
-        let height:CGFloat = frame.height
-        
-        //上記より画面ぴったりサイズのフレームを生成する
-        let calendarFrame:CGRect = CGRect(x: x, y: y, width: width, height: height)
+        //画面ぴったりサイズのフレームを生成する
+        let calendarFrame:CGRect = CGRect(x: frame.origin.x, y: frame.origin.y+20, width: frame.width, height: frame.height)
 
         calendarCollectionView = UICollectionView(frame: calendarFrame, collectionViewLayout: layout)
         calendarCollectionView.register(CalendarCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
@@ -93,7 +85,7 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         let numberOfMargin: CGFloat = 8.0
         let width: CGFloat = (collectionView.frame.size.width - cellMargin * numberOfMargin) / CGFloat(daysPerWeek)
-        let height: CGFloat = width*1.6
+        let height: CGFloat = collectionView.frame.size.height/6
         return CGSize(width: width, height: height)
     }
     
@@ -121,41 +113,19 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell:CalendarCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CalendarCollectionViewCell
         
-        cell.backgroundColor = UIColor.white
-        cell.textLabel.backgroundColor = UIColor.white
+        cell.backgroundColor = UIColor.blackGray()
+        cell.textLabel.backgroundColor = UIColor.blackGray()
         cell.textLabel.text = ""
-        
-        cell.eventLabel1.backgroundColor = UIColor.white
-        cell.eventLabel1.text = ""
-        
-        cell.eventLabel2.backgroundColor = UIColor.white
-        cell.eventLabel2.text = ""
 
-        cell.eventLabel3.backgroundColor = UIColor.white
-        cell.eventLabel3.text = ""
-
-        cell.eventLabel4.backgroundColor = UIColor.white
-        cell.eventLabel4.text = ""
-        
         //テキストカラー
         if (indexPath.row % 7 == 0) {
             cell.textLabel.textColor = UIColor.lightRed()
         } else if (indexPath.row % 7 == 6) {
             cell.textLabel.textColor = UIColor.lightBlue()
         } else {
-            cell.textLabel.textColor = UIColor.gray
+            cell.textLabel.textColor = UIColor.white
         }
-        
-        //detailに格納される番号により表示を変える
-        var events:[Int]=[];
-        var is_today:Int  = -1;
-        
-        cell.textLabel.text = dateManager.conversionDateFormat(indexPath,events:&events,is_today: &is_today)
-
-//        1 本日の日付
-        if is_today == 1{
-            cell.textLabel.backgroundColor = UIColor.cyan
-        }
+        cell.textLabel.text = dateManager.conversionDateFormat(indexPath)
         return cell
     }
     
@@ -168,6 +138,7 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
     }
 }
 
+//色の定義
 extension UIColor {
     class func lightBlue() -> UIColor {
         return UIColor(red: 92.0 / 255, green: 192.0 / 255, blue: 210.0 / 255, alpha: 1.0)

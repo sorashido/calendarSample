@@ -37,7 +37,6 @@ class DateManager: NSObject {
     
     //月ごとのセルの数を返すメソッド(現在では表示の都合上から最大値を固定で返している)
     func daysAcquisition() -> Int {
-        //        let rangeOfWeeks = NSCalendar.currentCalendar().rangeOfUnit(NSCalendarUnit.WeekOfMonth, inUnit: NSCalendarUnit.Month, forDate: firstDateOfMonth())
         let numberOfWeeks = 6//rangeOfWeeks.length //月が持つ週の数
         numberOfItems = numberOfWeeks * daysPerWeek //週の数×列の数
         return numberOfItems
@@ -67,24 +66,13 @@ class DateManager: NSObject {
     }
     
     //表記の変更
-    func conversionDateFormat(_ indexPath: IndexPath,events:inout [Int],is_today:inout Int) -> String{
+    func conversionDateFormat(_ indexPath: IndexPath) -> String{
         dateForCellAtIndexPath(numberOfItems)
         
         let formatter: DateFormatter = DateFormatter()
         formatter.dateFormat = "d"
-        
-        //ここで特定の月日だけ表示を変えたい場合の処理を加える
-        var eventIndex:Int = 1
-        //今日
-        let compareFormatter: DateFormatter = DateFormatter()
-        compareFormatter.dateFormat = "yyyy,M,d"
-        
-        if compareFormatter.string(from: today)==compareFormatter.string(from: currentMonthOfDates[indexPath.row]){
-            is_today = 1;
-        }
         return formatter.string(from: currentMonthOfDates[indexPath.row])
     }
-    
     
     //前月の表示
     func prevMonth(_ date: Date) -> Date {
