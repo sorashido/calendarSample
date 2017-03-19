@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,UIScrollViewDelegate{
     
     var scrollView: UIScrollView!
     var pageControll: UIPageControl!
@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     var nextMonth: CalendarView!
     
     let pageNum = 3
+    
+    var didScloll:Bool = true
     
     // UILabelを生成
     var headerTitle: UILabel!
@@ -52,9 +54,10 @@ class ViewController: UIViewController {
         self.scrollView.addSubview(currentMonth)
         self.scrollView.addSubview(nextMonth)
         self.scrollView.addSubview(prevMonth)
+        self.scrollView.delegate = self //scrollの処理をここで行うための宣言
         
         /*年月の表示*/
-        headerTitle = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        headerTitle = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
         headerTitle.text = changeHeaderTitle(currentMonth.selectedDate as Date)
         headerTitle.font = UIFont.boldSystemFont(ofSize: 18)//UIFont(name: "HiraKakuProN-W3", size: 12)
         headerTitle.textAlignment = NSTextAlignment.center
@@ -67,7 +70,58 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    /*スクロールが行われた時の処理*/
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pos:CGFloat  = scrollView.contentOffset.x / scrollView.bounds.size.width
+        let deff:CGFloat = pos - 1.0
+        if fabs(deff) >= 1.0 && didScloll{
+            didScloll = false
+            if (deff > 0) {
+                self.showNextView()
+            } else {
+                self.showPrevView()
+            }
+        }
+    }
     
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        didScloll = true
+    }
+
+    /*次の月に移動*/
+    func showNextView(){
+        prevMonth.setNextMonth()
+        currentMonth.setNextMonth()
+        nextMonth.setNextMonth()
+
+        resetContentOffSet()
+        
+        headerTitle.text = changeHeaderTitle(currentMonth.selectedDate)
+        currentMonth.reloadView()
+    }
+    
+    /*前月に移動*/
+    func showPrevView(){
+        prevMonth.setPrevMonth()
+        currentMonth.setPrevMonth()
+        nextMonth.setPrevMonth()
+    
+        resetContentOffSet()
+        
+        headerTitle.text = changeHeaderTitle(currentMonth.selectedDate)
+        currentMonth.reloadView()
+    }
+    
+    /*移動後の位置を直す*/
+    func resetContentOffSet () {
+        //position調整
+        currentMonth.frame = CGRect(x: self.view.bounds.width/2, y: 0,width: self.view.bounds.width, height: self.view.bounds.height)
+        nextMonth.frame = CGRect(x: self.view.bounds.width*CGFloat(1), y: 0,width: self.view.bounds.width, height: self.view.bounds.height)
+        prevMonth.frame = CGRect(x: 0, y: 0,width: self.view.bounds.width, height: self.view.bounds.height)
+        
+        //現在の位置を変更
+        scrollView.contentOffset = CGPoint(x:self.view.bounds.width , y:0.0);
+    }
     
     //headerの月を変更
     func changeHeaderTitle(_ date: Date) -> String {

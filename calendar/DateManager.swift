@@ -54,7 +54,6 @@ class DateManager: NSObject {
         
         //表記の必要なセル数を計算
         let numberOfWeeks = Int(ceil(CGFloat(ordinalityOfFirstDay+range.length-1)/CGFloat(7.0)))
-        print(numberOfWeeks)
         return numberOfWeeks
     }
 
