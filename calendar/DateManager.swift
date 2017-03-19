@@ -35,13 +35,7 @@ class DateManager: NSObject {
     let daysPerWeek: Int = 7
     var numberOfItems: Int!
     
-    //月ごとのセルの数を返すメソッド(現在では表示の都合上から最大値を固定で返している)
-    func daysAcquisition() -> Int {
-        let numberOfWeeks = 6//rangeOfWeeks.length //月が持つ週の数
-        numberOfItems = numberOfWeeks * daysPerWeek //週の数×列の数
-        return numberOfItems
-    }
-    //月の初日を取得
+    //月初めを取得
     func firstDateOfMonth() -> Date {
         var components = (Calendar.current as NSCalendar).components([.year, .month, .day],
                                                                      from: selectedDate)
@@ -49,18 +43,35 @@ class DateManager: NSObject {
         let firstDateMonth = Calendar.current.date(from: components)!
         return firstDateMonth
     }
+
+    //月毎の週の数を返す
+    func getNumOfWeeks() -> Int {
+        //月初めの表示番号を取得
+        let ordinalityOfFirstDay = (Calendar.current as NSCalendar).ordinality(of: NSCalendar.Unit.day, in: NSCalendar.Unit.weekOfMonth, for: firstDateOfMonth())
+        
+        //その月が何日あるかを計算
+        let range = (Calendar.current as NSCalendar).range(of: .day, in: .month, for: selectedDate)
+        
+        //表記の必要なセル数を計算
+        let numberOfWeeks = Int(ceil(CGFloat(ordinalityOfFirstDay+range.length-1)/CGFloat(7.0)))
+        print(numberOfWeeks)
+        return numberOfWeeks
+    }
+
+    //月毎のセル数を返す
+    func getNumOfDays() -> Int {
+        numberOfItems = getNumOfWeeks() * daysPerWeek //
+        return numberOfItems
+    }
     
-    //表記する日にちの取得
+    //表記する日を配列へ
     func dateForCellAtIndexPath(_ numberOfItems: Int) {
-        // 「月の初日が週の何日目か」を計算する
+        //月初めの表示番号を取得
         let ordinalityOfFirstDay = (Calendar.current as NSCalendar).ordinality(of: NSCalendar.Unit.day, in: NSCalendar.Unit.weekOfMonth, for: firstDateOfMonth())
         for i in 0 ..< numberOfItems {
-            // 「月の初日」と「indexPath.item番目のセルに表示する日」の差を計算する
             var dateComponents = DateComponents()
             dateComponents.day = i - (ordinalityOfFirstDay - 1)
-            // 表示する月の初日から②で計算した差を引いた日付を取得
             let date = (Calendar.current as NSCalendar).date(byAdding: dateComponents, to: firstDateOfMonth(), options: NSCalendar.Options(rawValue: 0))!
-            // 配列に追加
             currentMonthOfDates.append(date)
         }
     }

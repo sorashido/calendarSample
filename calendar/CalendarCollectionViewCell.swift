@@ -21,7 +21,7 @@ class CalendarCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         // UILabelを生成
-        textLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height/4))
+        textLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height/6))
         textLabel.font = UIFont.boldSystemFont(ofSize: 12)//UIFont(name: "HiraKakuProN-W3", size: 12)
         textLabel.textAlignment = NSTextAlignment.center
         

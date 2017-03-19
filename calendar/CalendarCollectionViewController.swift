@@ -29,7 +29,8 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
         
         // コレクションビュー作成
         //画面ぴったりサイズのフレームを生成する
-        let calendarFrame:CGRect = CGRect(x: frame.origin.x, y: frame.origin.y+20, width: frame.width, height: frame.height)
+        let weekSize:CGFloat = 20
+        let calendarFrame:CGRect = CGRect(x: frame.origin.x, y: frame.origin.y+weekSize, width: frame.width, height: frame.height-80)
 
         calendarCollectionView = UICollectionView(frame: calendarFrame, collectionViewLayout: layout)
         calendarCollectionView.register(CalendarCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
@@ -48,7 +49,7 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
         self.addSubview(calendarCollectionView)
         
         // 曜日の表示
-        let weekView:UIView = UIView(frame: CGRect(x: CGFloat(current+1)*self.frame.size.width/2,y: 0,width: self.frame.size.width, height: 18))
+        let weekView:UIView = UIView(frame: CGRect(x: CGFloat(current+1)*self.frame.size.width/2,y: 0,width: self.frame.size.width, height: weekSize))
         weekView.backgroundColor = UIColor.blackGray()
         for i in 0...6{
             let weekLabel:UILabel = UILabel(frame: CGRect(x: self.frame.size.width/7*CGFloat(i),y: 0,width: self.frame.size.width/7, height: 15))
@@ -83,9 +84,10 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
     
     //セルのサイズを設定
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
-        let numberOfMargin: CGFloat = 8.0
+        
+        let numberOfMargin: CGFloat = 10.0
         let width: CGFloat = (collectionView.frame.size.width - cellMargin * numberOfMargin) / CGFloat(daysPerWeek)
-        let height: CGFloat = collectionView.frame.size.height/6
+        let height: CGFloat = (collectionView.frame.size.height-20)/CGFloat(dateManager.getNumOfWeeks())
         return CGSize(width: width, height: height)
     }
     
@@ -106,7 +108,7 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
     
     // 表示するセルの数
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return dateManager.daysAcquisition() //
+            return dateManager.getNumOfDays()
     }
     
     // 月日の表示
@@ -114,7 +116,7 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
         let cell:CalendarCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CalendarCollectionViewCell
         
         cell.backgroundColor = UIColor.blackGray()
-        cell.textLabel.backgroundColor = UIColor.blackGray()
+        cell.textLabel.backgroundColor = UIColor.gray//UIColor.Gray()//blackGray()
         cell.textLabel.text = ""
 
         //テキストカラー
