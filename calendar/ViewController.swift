@@ -57,7 +57,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         self.scrollView.delegate = self //scrollの処理をここで行うための宣言
         
         /*年月の表示*/
-        headerTitle = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
+        headerTitle = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 100))
         headerTitle.text = changeHeaderTitle(currentMonth.selectedDate as Date)
         headerTitle.font = UIFont.boldSystemFont(ofSize: 18)//UIFont(name: "HiraKakuProN-W3", size: 12)
         headerTitle.textAlignment = NSTextAlignment.center
