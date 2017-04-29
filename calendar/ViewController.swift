@@ -86,6 +86,10 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         let deff:CGFloat = pos - 1.0
         if fabs(deff) >= 1.0 && didScloll{
             didScloll = false
+            
+//            scrollView.
+            scrollView.backgroundColor = UIColor.clear
+            
             if (deff > 0) {
                 self.showNextView()
             } else {

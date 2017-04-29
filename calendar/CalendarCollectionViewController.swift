@@ -12,7 +12,7 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
     var calendarCollectionView:UICollectionView!
     let dateManager = DateManager()
     let daysPerWeek: Int = 7
-    let cellMargin: CGFloat = 0.5
+    let cellMargin: CGFloat = 1.0
     var selectedDate = Date()
     let weekArray = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     
@@ -30,7 +30,7 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
         // コレクションビュー作成
         //画面ぴったりサイズのフレームを生成する
         let weekSize:CGFloat = 20
-        let calendarFrame:CGRect = CGRect(x: frame.origin.x, y: frame.origin.y+weekSize, width: frame.width, height: frame.height-82)
+        let calendarFrame:CGRect = CGRect(x: frame.origin.x, y: frame.origin.y+weekSize, width: frame.width, height: frame.height-80)
 
         calendarCollectionView = UICollectionView(frame: calendarFrame, collectionViewLayout: layout)
         calendarCollectionView.register(CalendarCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
@@ -51,6 +51,13 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
         // 曜日の表示
         let weekView:UIView = UIView(frame: CGRect(x: CGFloat(current+1)*self.frame.size.width/2,y: 0,width: self.frame.size.width, height: weekSize))
         weekView.backgroundColor = UIColor.blackGray()
+
+        // 下線の追加
+        let bottomLine = CALayer()
+        bottomLine.frame = CGRect(x: 0, y: weekView.frame.height, width: weekView.frame.width, height: 1.0)
+        bottomLine.backgroundColor = UIColor.lightGray.cgColor
+        weekView.layer.addSublayer(bottomLine)
+
         for i in 0...6{
             let weekLabel:UILabel = UILabel(frame: CGRect(x: self.frame.size.width/7*CGFloat(i),y: 0,width: self.frame.size.width/7, height: 15))
             weekLabel.font = UIFont(name: "HiraKakuProN-W3", size: 12)
