@@ -22,12 +22,12 @@ class ViewController: UIViewController,UIScrollViewDelegate{
     var didScloll:Bool = true
     
     // UILabelを生成
-    var headerTitle: UILabel!
+    var headerYear: UILabel!
+    var headerMonth: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /*画面の設定*/
         //UIViewController.viewの座標取得
         let x:CGFloat = self.view.bounds.origin.x
         let y:CGFloat = self.view.bounds.origin.y+80//topMargin
@@ -57,12 +57,22 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         self.scrollView.delegate = self //scrollの処理をここで行うための宣言
         
         /*年月の表示*/
-        headerTitle = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 100))
-        headerTitle.text = changeHeaderTitle(currentMonth.selectedDate as Date)
-        headerTitle.font = UIFont.boldSystemFont(ofSize: 18)//UIFont(name: "HiraKakuProN-W3", size: 12)
-        headerTitle.textAlignment = NSTextAlignment.center
+        headerYear = UILabel(frame: CGRect(x: 15, y: 0, width: self.view.bounds.width, height: 100))
+        headerYear.text = changeheaderYear(currentMonth.selectedDate as Date)
+        headerYear.font = UIFont.boldSystemFont(ofSize: 24)//UIFont(name: "HiraKakuProN-W3", size: 12)
+        headerYear.textAlignment = NSTextAlignment.left
+        headerYear.textColor = UIColor.lightRed()
+
+        headerMonth = UILabel(frame: CGRect(x: 80, y: 0, width: self.view.bounds.width, height: 100))
+        headerMonth.text = changeheaderMonth(currentMonth.selectedDate as Date)
+        headerMonth.font = UIFont.boldSystemFont(ofSize: 18)//UIFont(name: "HiraKakuProN-W3", size: 12)
+        headerMonth.textAlignment = NSTextAlignment.left
+        headerMonth.textColor = UIColor.white
+
         // Cellに追加
-        self.view.addSubview(headerTitle!)
+        self.view.addSubview(headerYear!)
+        self.view.addSubview(headerMonth!)
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -96,7 +106,8 @@ class ViewController: UIViewController,UIScrollViewDelegate{
 
         resetContentOffSet()
         
-        headerTitle.text = changeHeaderTitle(currentMonth.selectedDate)
+        headerMonth.text = changeheaderMonth(currentMonth.selectedDate)
+        headerYear.text = changeheaderYear(currentMonth.selectedDate)
         currentMonth.reloadView()
     }
     
@@ -108,7 +119,8 @@ class ViewController: UIViewController,UIScrollViewDelegate{
     
         resetContentOffSet()
         
-        headerTitle.text = changeHeaderTitle(currentMonth.selectedDate)
+        headerMonth.text = changeheaderMonth(currentMonth.selectedDate)
+        headerYear.text = changeheaderYear(currentMonth.selectedDate)
         currentMonth.reloadView()
     }
     
@@ -124,12 +136,17 @@ class ViewController: UIViewController,UIScrollViewDelegate{
     }
     
     //headerの月を変更
-    func changeHeaderTitle(_ date: Date) -> String {
+    func changeheaderYear(_ date: Date) -> String {
         let formatter: DateFormatter = DateFormatter()
-        formatter.dateFormat = "yyyy年 M月"
+        formatter.dateFormat = "yyyy"
         let selectMonth = formatter.string(from: date)
         return selectMonth
     }
-
+    func changeheaderMonth(_ date: Date) -> String {
+        let formatter: DateFormatter = DateFormatter()
+        formatter.dateFormat = "MMMM"
+        let selectMonth = formatter.string(from: date)
+        return selectMonth
+    }
 }
 

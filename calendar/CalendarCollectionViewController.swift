@@ -12,7 +12,7 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
     var calendarCollectionView:UICollectionView!
     let dateManager = DateManager()
     let daysPerWeek: Int = 7
-    let cellMargin: CGFloat = 0.3
+    let cellMargin: CGFloat = 0.5
     var selectedDate = Date()
     let weekArray = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     
@@ -30,7 +30,7 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
         // コレクションビュー作成
         //画面ぴったりサイズのフレームを生成する
         let weekSize:CGFloat = 20
-        let calendarFrame:CGRect = CGRect(x: frame.origin.x, y: frame.origin.y+weekSize, width: frame.width, height: frame.height-80)
+        let calendarFrame:CGRect = CGRect(x: frame.origin.x, y: frame.origin.y+weekSize, width: frame.width, height: frame.height-82)
 
         calendarCollectionView = UICollectionView(frame: calendarFrame, collectionViewLayout: layout)
         calendarCollectionView.register(CalendarCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
@@ -115,8 +115,8 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell:CalendarCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CalendarCollectionViewCell
         
-        cell.backgroundColor = UIColor.blackGray()
-        cell.textLabel.backgroundColor = UIColor.gray//UIColor.Gray()//blackGray()
+        cell.backgroundColor = UIColor.blackGray()//blackGray()#B64D3F
+        cell.textLabel.backgroundColor = UIColor.blackGray()//UIColor.Gray()//blackGray()
         cell.textLabel.text = ""
 
         //テキストカラー
@@ -129,14 +129,6 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
         }
         cell.textLabel.text = dateManager.conversionDateFormat(indexPath)
         return cell
-    }
-    
-    //headerの月を変更
-    func changeHeaderTitle(_ date: Date) -> String {
-        let formatter: DateFormatter = DateFormatter()
-        formatter.dateFormat = "yyyy年 M月"
-        let selectMonth = formatter.string(from: date)
-        return selectMonth
     }
 }
 
@@ -151,7 +143,7 @@ extension UIColor {
     }
     
     class func blackGray() -> UIColor{
-        return UIColor(red: 92.0 / 255, green: 92.0 / 255, blue: 92.0 / 255, alpha: 1.0)
+        return UIColor(red: 33 / 255, green: 33 / 255, blue: 33 / 255, alpha: 1.0)
     }
     
     class func lightGray() -> UIColor{
