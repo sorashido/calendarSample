@@ -15,6 +15,8 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
     let dateManager = DateManager()
     let daysPerWeek: Int = 7
     let cellMargin: CGFloat = 1.0
+    let weekSize: CGFloat = 20
+
     var selectedDate = Date()
     let weekArray = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
@@ -35,10 +37,10 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
 
         // CollectionViewのレイアウトを生成.
         let screenWidth : CGFloat = frame.size.width
-        let screenHeight : CGFloat = frame.size.height
+        let screenHeight : CGFloat = frame.size.height - weekSize
         let layout = UICollectionViewFlowLayout()
         // CollectionViewを生成
-        collectionView = UICollectionView(frame: CGRect(x: screenWidth, y: 0, width: frame.size.width, height: CGFloat(screenHeight)), collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: CGRect(x: screenWidth, y: weekSize, width: frame.size.width, height: CGFloat(screenHeight)), collectionViewLayout: layout)
         collectionView.backgroundColor = UIColor.white
         collectionView.isScrollEnabled = false
         collectionView.center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
@@ -46,7 +48,7 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
         collectionView.register(CalendarCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.frame =  CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
+        collectionView.frame =  CGRect(x: 0, y: weekSize, width: screenWidth, height: screenHeight)
         self.addSubview(collectionView)
         
         // 曜日の表示
@@ -94,10 +96,9 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
         
         let numberOfMargin: CGFloat = 10.0
         let width: CGFloat = (collectionView.frame.size.width - cellMargin * numberOfMargin) / CGFloat(daysPerWeek)
-        let height: CGFloat = (collectionView.frame.size.height-20)/CGFloat(dateManager.getNumOfWeeks())
+        let height: CGFloat = (collectionView.frame.size.height-weekSize)/CGFloat(dateManager.getNumOfWeeks())
         return CGSize(width: width, height: height)
     }
-    
     
     //セルの垂直方向のマージンを設定
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -116,7 +117,7 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
     
     // 表示するセルの数
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return dateManager.getNumOfDays()
+        return dateManager.getNumOfDays()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
