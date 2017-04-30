@@ -8,56 +8,55 @@
 
 import UIKit
 
-class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
-    var calendarCollectionView:UICollectionView!
+class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+
+    var collectionView:UICollectionView!
+
     let dateManager = DateManager()
     let daysPerWeek: Int = 7
     let cellMargin: CGFloat = 1.0
     var selectedDate = Date()
     let weekArray = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(frame: CGRect,current:Int){
+    init(frame: CGRect, current:Int){
         super.init(frame: frame)
         
-        // レイアウト作成
-        // CollectionViewのレイアウトを生成.
-        let layout = UICollectionViewFlowLayout()
-        
-        // コレクションビュー作成
-        //画面ぴったりサイズのフレームを生成する
-        let weekSize:CGFloat = 20
-        let calendarFrame:CGRect = CGRect(x: frame.origin.x, y: frame.origin.y+weekSize, width: frame.width, height: frame.height-80)
+        self.setUpDays(current)
+    }
+    
+    func setUpDays(_ current: Int){
+        // 表示する月
+        if(current > 0){ selectedDate = dateManager.nextMonth(selectedDate)}
+        else if(current < 0){ selectedDate = dateManager.prevMonth(selectedDate)}
 
-        calendarCollectionView = UICollectionView(frame: calendarFrame, collectionViewLayout: layout)
-        calendarCollectionView.register(CalendarCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        
-        //現在の月から数えて表示する月を決める
-        if(current>0){
-            selectedDate = dateManager.nextMonth(selectedDate)
-        }
-        else if(current<0){
-            selectedDate = dateManager.prevMonth(selectedDate)
-        }
-        
-        calendarCollectionView.backgroundColor = UIColor.lightGray()//grayColor()//UIColor.whiteColor()
-        calendarCollectionView.dataSource = self
-        calendarCollectionView.delegate = self
-        self.addSubview(calendarCollectionView)
+        // CollectionViewのレイアウトを生成.
+        let screenWidth : CGFloat = frame.size.width
+        let screenHeight : CGFloat = frame.size.height
+        let layout = UICollectionViewFlowLayout()
+        // CollectionViewを生成
+        collectionView = UICollectionView(frame: CGRect(x: screenWidth, y: 0, width: frame.size.width, height: CGFloat(screenHeight)), collectionViewLayout: layout)
+        collectionView.backgroundColor = UIColor.white
+        collectionView.isScrollEnabled = false
+        collectionView.center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
+        // Cellに使われるクラスを登録
+        collectionView.register(CalendarCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.frame =  CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
+        self.addSubview(collectionView)
         
         // 曜日の表示
-        let weekView:UIView = UIView(frame: CGRect(x: CGFloat(current+1)*self.frame.size.width/2,y: 0,width: self.frame.size.width, height: weekSize))
-        weekView.backgroundColor = UIColor.blackGray()
-
+        let weekView:UIView = UIView(frame: CGRect(x: 0,y: 0,width: frame.size.width, height: 20))
+                weekView.backgroundColor = UIColor.black
         // 下線の追加
         let bottomLine = CALayer()
         bottomLine.frame = CGRect(x: 0, y: weekView.frame.height, width: weekView.frame.width, height: 1.0)
         bottomLine.backgroundColor = UIColor.lightGray.cgColor
         weekView.layer.addSublayer(bottomLine)
-
         for i in 0...6{
             let weekLabel:UILabel = UILabel(frame: CGRect(x: self.frame.size.width/7*CGFloat(i),y: 0,width: self.frame.size.width/7, height: 15))
             weekLabel.font = UIFont(name: "HiraKakuProN-W3", size: 12)
@@ -74,23 +73,24 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
         }
         self.addSubview(weekView)
     }
+
     
     func setNextMonth(){
         selectedDate = dateManager.nextMonth(selectedDate)
-        calendarCollectionView.reloadData()
+        collectionView.reloadData()
     }
     
     func setPrevMonth(){
         selectedDate = dateManager.prevMonth(selectedDate)
-        calendarCollectionView.reloadData()
+        collectionView.reloadData()
     }
     
     func reloadView(){
-        calendarCollectionView.reloadData()
+        collectionView.reloadData()
     }
     
     //セルのサイズを設定
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let numberOfMargin: CGFloat = 10.0
         let width: CGFloat = (collectionView.frame.size.width - cellMargin * numberOfMargin) / CGFloat(daysPerWeek)
@@ -98,16 +98,17 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
         return CGSize(width: width, height: height)
     }
     
+    
     //セルの垂直方向のマージンを設定
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return cellMargin
     }
     
     //セルの水平方向のマージンを設定
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return cellMargin
     }
-    
+
     // セクションの数
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -116,6 +117,10 @@ class CalendarView:UIView,UICollectionViewDelegate,UICollectionViewDataSource{
     // 表示するセルの数
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             return dateManager.getNumOfDays()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("touch")
     }
     
     // 月日の表示
