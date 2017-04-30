@@ -12,7 +12,8 @@ import UIKit
 class CalendarCollectionViewCell: UICollectionViewCell {
     
     var textLabel: UILabel!
-    
+//    var button: UIButton!
+
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
     }
@@ -24,7 +25,9 @@ class CalendarCollectionViewCell: UICollectionViewCell {
         textLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 18/*self.frame.height/6*/))
         textLabel.font = UIFont.boldSystemFont(ofSize: 12)//UIFont(name: "HiraKakuProN-W3", size: 12)
         textLabel.textAlignment = NSTextAlignment.center
-                
+
+//        button = UIButton(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 18/*self.frame.height/6*/))
+        
         // Cellに追加
         self.addSubview(textLabel!)
     }

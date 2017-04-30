@@ -16,7 +16,8 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
     let daysPerWeek: Int = 7
     let cellMargin: CGFloat = 1.0
     let weekSize: CGFloat = 20
-
+    
+    var selectedItem: String = "0"
     var selectedDate = Date()
     let weekArray = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
@@ -121,7 +122,12 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("touch")
+        print("tap")
+        let cell:CalendarCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CalendarCollectionViewCell
+        
+        selectedItem = dateManager.conversionDateFormat(indexPath)
+        cell.backgroundColor = UIColor.white//blackGray()#B64D3F
+        collectionView.reloadData()
     }
     
     // 月日の表示
@@ -139,6 +145,9 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
             cell.textLabel.textColor = UIColor.lightBlue()
         } else {
             cell.textLabel.textColor = UIColor.white
+        }
+        if (selectedItem == dateManager.conversionDateFormat(indexPath)){
+            cell.textLabel.textColor = UIColor.red
         }
         cell.textLabel.text = dateManager.conversionDateFormat(indexPath)
         return cell
