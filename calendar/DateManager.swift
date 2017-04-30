@@ -83,6 +83,21 @@ class DateManager: NSObject {
         formatter.dateFormat = "d"
         return formatter.string(from: currentMonthOfDates[indexPath.row])
     }
+    //
+    func conversionMonthDataFormat(_ indexPath: IndexPath) -> String{
+        dateForCellAtIndexPath(numberOfItems)
+        
+        let formatter: DateFormatter = DateFormatter()
+        formatter.dateFormat = "M/d"
+        return formatter.string(from: currentMonthOfDates[indexPath.row])
+    }
+    func conversionMonth(_ indexPath: IndexPath) ->String{
+        dateForCellAtIndexPath(numberOfItems)
+        
+        let formatter: DateFormatter = DateFormatter()
+        formatter.dateFormat = "M"
+        return formatter.string(from: currentMonthOfDates[indexPath.row])
+    }
     
     //前月の表示
     func prevMonth(_ date: Date) -> Date {

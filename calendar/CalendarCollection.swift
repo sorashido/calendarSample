@@ -125,7 +125,8 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
         print("tap")
         let cell:CalendarCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CalendarCollectionViewCell
         
-        selectedItem = dateManager.conversionDateFormat(indexPath)
+        //タップ日付を保存
+        selectedItem = dateManager.conversionMonthDataFormat(indexPath)//
         cell.backgroundColor = UIColor.white//blackGray()#B64D3F
         collectionView.reloadData()
     }
@@ -146,10 +147,29 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
         } else {
             cell.textLabel.textColor = UIColor.white
         }
-        if (selectedItem == dateManager.conversionDateFormat(indexPath)){
-            cell.textLabel.textColor = UIColor.red
-        }
         cell.textLabel.text = dateManager.conversionDateFormat(indexPath)
+        
+        //選択した日付の色
+        if (selectedItem == dateManager.conversionMonthDataFormat(indexPath)){
+            cell.textLabel.backgroundColor = UIColor.lightGray()
+            cell.backgroundColor = UIColor.lightGray()
+        }
+        
+        //表示している月ではない日の色
+        var formatter: DateFormatter = DateFormatter()
+        formatter.dateFormat = "M"
+        let selectMonth = formatter.string(from: selectedDate)
+        if (selectMonth != dateManager.conversionMonth(indexPath)){
+            cell.textLabel.textColor = UIColor.lightGray()
+        }
+
+        //今日の日付
+        formatter.dateFormat = "M/d"
+        let today = formatter.string(from: Date())
+        if (today == dateManager.conversionMonthDataFormat(indexPath)){
+            cell.textLabel.textColor = UIColor.yellow
+        }
+
         return cell
     }
 }
