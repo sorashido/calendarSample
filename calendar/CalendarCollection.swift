@@ -122,7 +122,6 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("tap")
         let cell:CalendarCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CalendarCollectionViewCell
         
         //タップ日付を保存
@@ -156,7 +155,7 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
         }
         
         //表示している月ではない日の色
-        var formatter: DateFormatter = DateFormatter()
+        let formatter: DateFormatter = DateFormatter()
         formatter.dateFormat = "M"
         let selectMonth = formatter.string(from: selectedDate)
         if (selectMonth != dateManager.conversionMonth(indexPath)){

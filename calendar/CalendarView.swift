@@ -40,7 +40,7 @@ class CalendarView: UIView, UIScrollViewDelegate{
         
         self.addSubview(scrollView)
         
-        /*現在、先月、前月を加える*/
+        //現在、先月、前月を加える
         currentMonth = CalendarCollection(frame:CGRect(x: frame.size.width, y: 0,width: screenWidth, height: screenHeight),current:0)
         nextMonth = CalendarCollection(frame:CGRect(x: frame.size.width*2, y: 0, width: screenWidth, height: screenHeight),current:1)
         prevMonth = CalendarCollection(frame:CGRect(x: 0, y: 0,width: screenWidth, height: screenHeight),current:-1)

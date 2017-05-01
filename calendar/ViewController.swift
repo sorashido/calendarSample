@@ -21,15 +21,15 @@ class ViewController: UIViewController{
         let calView = CalendarView(frame: frame)
         self.view.addSubview(calView)
         
-        /*年月の表示*/
+        // 年月の表示
         headerYear = UILabel(frame: CGRect(x: 15, y: 0, width: self.view.bounds.width, height: 100))
-        headerYear.text = "2017"//changeheaderYear(currentMonth.selectedDate as Date)
+        headerYear.text = calView.changeheaderYear(Date())//changeheaderYear(currentMonth.selectedDate as Date)
         headerYear.font = UIFont.boldSystemFont(ofSize: 24)//UIFont(name: "HiraKakuProN-W3", size: 12)
         headerYear.textAlignment = NSTextAlignment.left
         headerYear.textColor = UIColor.lightRed()
         
         headerMonth = UILabel(frame: CGRect(x: 80, y: 0, width: self.view.bounds.width, height: 100))
-        headerMonth.text = "April"//changeheaderMonth(currentMonth.selectedDate as Date)
+        headerMonth.text = calView.changeheaderMonth(Date())//changeheaderMonth(currentMonth.selectedDate as Date)
         headerMonth.font = UIFont.boldSystemFont(ofSize: 18)//UIFont(name: "HiraKakuProN-W3", size: 12)
         headerMonth.textAlignment = NSTextAlignment.left
         headerMonth.textColor = UIColor.white
