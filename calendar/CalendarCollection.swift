@@ -27,7 +27,8 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
     
     init(frame: CGRect, current:Int){
         super.init(frame: frame)
-        
+//        super.viewDidLoad()
+
         self.setUpDays(current)
     }
     
@@ -37,6 +38,7 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
         else if(current < 0){ selectedDate = dateManager.prevMonth(selectedDate)}
 
         // CollectionViewのレイアウトを生成.
+//        let frame = CGRect(x: 0, y: 80, width: self.view.frame.width, height: self.view.frame.height)
         let screenWidth : CGFloat = frame.size.width
         let screenHeight : CGFloat = frame.size.height - weekSize
         let layout = UICollectionViewFlowLayout()
@@ -120,7 +122,8 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dateManager.getNumOfDays()
     }
-    
+
+    // タップイベント
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell:CalendarCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CalendarCollectionViewCell
         
@@ -128,6 +131,9 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
         selectedItem = dateManager.conversionMonthDataFormat(indexPath)//
         cell.backgroundColor = UIColor.white//blackGray()#B64D3F
         collectionView.reloadData()
+        
+        // 画面遷移
+//        performSegue(withIdentifier: "move to detail", sender: nil)
     }
     
     // 月日の表示
