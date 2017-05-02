@@ -27,7 +27,6 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
     
     init(frame: CGRect, current:Int){
         super.init(frame: frame)
-//        super.viewDidLoad()
 
         self.setUpDays(current)
     }
@@ -56,7 +55,8 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
         
         // 曜日の表示
         let weekView:UIView = UIView(frame: CGRect(x: 0,y: 0,width: frame.size.width, height: 20))
-                weekView.backgroundColor = UIColor.black
+        weekView.backgroundColor = UIColor.black
+        
         // 下線の追加
         let bottomLine = CALayer()
         bottomLine.frame = CGRect(x: 0, y: weekView.frame.height, width: weekView.frame.width, height: 1.0)
@@ -130,10 +130,10 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
         //タップ日付を保存
         selectedItem = dateManager.conversionMonthDataFormat(indexPath)//
         cell.backgroundColor = UIColor.white//blackGray()#B64D3F
-        collectionView.reloadData()
         
-        // 画面遷移
-//        performSegue(withIdentifier: "move to detail", sender: nil)
+        bottomDay.text = selectedItem
+        
+        collectionView.reloadData()
     }
     
     // 月日の表示

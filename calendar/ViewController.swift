@@ -11,32 +11,55 @@ import UIKit
 // UILabelを生成
 var headerYear: UILabel!
 var headerMonth: UILabel!
+var bottomDay: UILabel!
 
 class ViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let frame = CGRect(x: 0, y: 80, width: self.view.frame.width, height: self.view.frame.height)
+        view.backgroundColor = .blackGray()
+        let listHeight = CGFloat(250)
+        let margin = CGFloat(30)
+        
+        /* Calendar */
+        let frame = CGRect(x: 0, y: 80, width: self.view.frame.width, height: self.view.frame.height - listHeight)
         let calView = CalendarView(frame: frame)
         self.view.addSubview(calView)
         
-        // 年月の表示
-        headerYear = UILabel(frame: CGRect(x: 15, y: 0, width: self.view.bounds.width, height: 100))
+        /* 文字の追加 */
+        headerYear = UILabel(frame: CGRect(x: 15, y: 40, width: self.view.bounds.width, height: 30))
         headerYear.text = calView.changeheaderYear(Date())//changeheaderYear(currentMonth.selectedDate as Date)
         headerYear.font = UIFont.boldSystemFont(ofSize: 24)//UIFont(name: "HiraKakuProN-W3", size: 12)
         headerYear.textAlignment = NSTextAlignment.left
-        headerYear.textColor = UIColor.lightRed()
+        headerYear.textColor = .lightRed()
         
-        headerMonth = UILabel(frame: CGRect(x: 80, y: 0, width: self.view.bounds.width, height: 100))
+        headerMonth = UILabel(frame: CGRect(x: 80, y: 40, width: self.view.bounds.width, height: 30))
         headerMonth.text = calView.changeheaderMonth(Date())//changeheaderMonth(currentMonth.selectedDate as Date)
         headerMonth.font = UIFont.boldSystemFont(ofSize: 18)//UIFont(name: "HiraKakuProN-W3", size: 12)
         headerMonth.textAlignment = NSTextAlignment.left
-        headerMonth.textColor = UIColor.white
+        headerMonth.textColor = .white
         
-        // Cellに追加
+        bottomDay = UILabel(frame: CGRect(x: 0, y: self.view.frame.height-listHeight, width: self.view.bounds.width, height: margin))
+        bottomDay.text = calView.changebottomDay(Date())
+        bottomDay.font = UIFont(name: "HiraKakuProN-W3", size: 14)
+        bottomDay.textAlignment = NSTextAlignment.center
+        bottomDay.backgroundColor = .blackGray()
+        bottomDay.textColor = .white
+        // 上線の追加
+        let topLine = CALayer()
+        topLine.frame = CGRect(x: 0, y: 0, width: bottomDay.frame.width, height: 1.0)
+        topLine.backgroundColor = UIColor.lightGray.cgColor
+        bottomDay.layer.addSublayer(topLine)
+
         self.view.addSubview(headerYear!)
         self.view.addSubview(headerMonth!)
+        self.view.addSubview(bottomDay!)
+
+        /* Listの作成 */
+        let frame2 = CGRect(x: 0, y: self.view.frame.height-listHeight + margin, width: self.view.frame.width, height: listHeight)
+        let listView = CalendarTableView(frame: frame2)
+        self.view.addSubview(listView)
     }
     
     override func didReceiveMemoryWarning() {

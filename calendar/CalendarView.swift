@@ -121,5 +121,11 @@ class CalendarView: UIView, UIScrollViewDelegate{
         let selectMonth = formatter.string(from: date)
         return selectMonth
     }
+    func changebottomDay(_ date: Date) -> String{
+        let formatter: DateFormatter = DateFormatter()
+        formatter.dateFormat = "yyyy/M/d"
+        let selectDay = formatter.string(from: date)
+        return selectDay
+    }
 
 }
