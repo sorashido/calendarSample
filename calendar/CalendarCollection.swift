@@ -37,7 +37,6 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
         else if(current < 0){ selectedDate = dateManager.prevMonth(selectedDate)}
 
         // CollectionViewのレイアウトを生成.
-//        let frame = CGRect(x: 0, y: 80, width: self.view.frame.width, height: self.view.frame.height)
         let screenWidth : CGFloat = frame.size.width
         let screenHeight : CGFloat = frame.size.height - weekSize
         let layout = UICollectionViewFlowLayout()
@@ -128,7 +127,7 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
         let cell:CalendarCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CalendarCollectionViewCell
         
         //タップ日付を保存
-        selectedItem = dateManager.conversionMonthDataFormat(indexPath)//
+        selectedItem = dateManager.conversionDataFormat(indexPath)//
         cell.backgroundColor = UIColor.white//blackGray()#B64D3F
         
         bottomDay.text = selectedItem
@@ -155,7 +154,7 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
         cell.textLabel.text = dateManager.conversionDateFormat(indexPath)
         
         //選択した日付の色
-        if (selectedItem == dateManager.conversionMonthDataFormat(indexPath)){
+        if (selectedItem == dateManager.conversionDataFormat(indexPath)){
             cell.textLabel.backgroundColor = UIColor.lightGray()
             cell.backgroundColor = UIColor.lightGray()
         }
@@ -169,9 +168,9 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
         }
 
         //今日の日付
-        formatter.dateFormat = "M/d"
+        formatter.dateFormat = "yyyy/M/d"
         let today = formatter.string(from: Date())
-        if (today == dateManager.conversionMonthDataFormat(indexPath)){
+        if (today == dateManager.conversionDataFormat(indexPath)){
             cell.textLabel.textColor = UIColor.yellow
         }
 

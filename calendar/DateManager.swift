@@ -84,11 +84,11 @@ class DateManager: NSObject {
         return formatter.string(from: currentMonthOfDates[indexPath.row])
     }
     //
-    func conversionMonthDataFormat(_ indexPath: IndexPath) -> String{
+    func conversionDataFormat(_ indexPath: IndexPath) -> String{
         dateForCellAtIndexPath(numberOfItems)
         
         let formatter: DateFormatter = DateFormatter()
-        formatter.dateFormat = "M/d"
+        formatter.dateFormat = "yyyy/M/d"
         return formatter.string(from: currentMonthOfDates[indexPath.row])
     }
     func conversionMonth(_ indexPath: IndexPath) ->String{

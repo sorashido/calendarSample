@@ -14,15 +14,17 @@ var headerMonth: UILabel!
 var bottomDay: UILabel!
 
 class ViewController: UIViewController{
+
+    @IBAction func backToTop(segue: UIStoryboardSegue) {}
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        /* Slide Calendar */
         view.backgroundColor = .blackGray()
         let listHeight = CGFloat(250)
         let margin = CGFloat(30)
-        
-        /* Calendar */
+
         let frame = CGRect(x: 0, y: 80, width: self.view.frame.width, height: self.view.frame.height - listHeight)
         let calView = CalendarView(frame: frame)
         self.view.addSubview(calView)
@@ -60,6 +62,9 @@ class ViewController: UIViewController{
         let frame2 = CGRect(x: 0, y: self.view.frame.height-listHeight + margin, width: self.view.frame.width, height: listHeight)
         let listView = CalendarTableView(frame: frame2)
         self.view.addSubview(listView)
+        
+        /* 設定画面へ移動*/
+        
     }
     
     override func didReceiveMemoryWarning() {
