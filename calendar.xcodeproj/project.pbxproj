@@ -12,11 +12,11 @@
 		BF2E1C301E778EAC0085C9B5 /* CalendarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2E1C2E1E778EAC0085C9B5 /* CalendarCollectionViewCell.swift */; };
 		BF2E1C311E778EAC0085C9B5 /* CalendarCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2E1C2F1E778EAC0085C9B5 /* CalendarCollection.swift */; };
 		BF2E1C351E7790810085C9B5 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2E1C341E7790810085C9B5 /* DateManager.swift */; };
+		BF50242C1EC2C67500C68BF0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF50242B1EC2C67500C68BF0 /* GoogleService-Info.plist */; };
+		BF50242D1EC2C67500C68BF0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF50242B1EC2C67500C68BF0 /* GoogleService-Info.plist */; };
+		BF50242E1EC2C67500C68BF0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF50242B1EC2C67500C68BF0 /* GoogleService-Info.plist */; };
 		BF9842771EB78320004F2B6B /* CalendarTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9842761EB78320004F2B6B /* CalendarTableView.swift */; };
 		BF9842791EB7A157004F2B6B /* TDBadgeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9842781EB7A157004F2B6B /* TDBadgeCell.swift */; };
-		BF9940F61EBAC85E008A984B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF9940F51EBAC85E008A984B /* GoogleService-Info.plist */; };
-		BF9940F71EBAC85E008A984B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF9940F51EBAC85E008A984B /* GoogleService-Info.plist */; };
-		BF9940F81EBAC85E008A984B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF9940F51EBAC85E008A984B /* GoogleService-Info.plist */; };
 		BF9941001EBB74AA008A984B /* setting.png in Resources */ = {isa = PBXBuildFile; fileRef = BF9940FF1EBB74AA008A984B /* setting.png */; };
 		BF9941021EBB7744008A984B /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9941011EBB7744008A984B /* SettingViewController.swift */; };
 		BFAAABBB1E778A28008EF199 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAAABBA1E778A28008EF199 /* AppDelegate.swift */; };
@@ -57,9 +57,9 @@
 		BF2E1C2E1E778EAC0085C9B5 /* CalendarCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCollectionViewCell.swift; sourceTree = "<group>"; };
 		BF2E1C2F1E778EAC0085C9B5 /* CalendarCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCollection.swift; sourceTree = "<group>"; };
 		BF2E1C341E7790810085C9B5 /* DateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
+		BF50242B1EC2C67500C68BF0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BF9842761EB78320004F2B6B /* CalendarTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarTableView.swift; sourceTree = "<group>"; };
 		BF9842781EB7A157004F2B6B /* TDBadgeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDBadgeCell.swift; sourceTree = "<group>"; };
-		BF9940F51EBAC85E008A984B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BF9940F91EBAD66B008A984B /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		BF9940FF1EBB74AA008A984B /* setting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting.png; sourceTree = "<group>"; };
 		BF9941011EBB7744008A984B /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -121,7 +121,7 @@
 		BFAAABAE1E778A28008EF199 = {
 			isa = PBXGroup;
 			children = (
-				BF9940F51EBAC85E008A984B /* GoogleService-Info.plist */,
+				BF50242B1EC2C67500C68BF0 /* GoogleService-Info.plist */,
 				BF9940F91EBAD66B008A984B /* Bridging-Header.h */,
 				BFAAABB91E778A28008EF199 /* calendar */,
 				BFAAABCE1E778A28008EF199 /* calendarTests */,
@@ -324,8 +324,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFAAABC51E778A28008EF199 /* LaunchScreen.storyboard in Resources */,
-				BF9940F61EBAC85E008A984B /* GoogleService-Info.plist in Resources */,
 				BFAAABC21E778A28008EF199 /* Assets.xcassets in Resources */,
+				BF50242C1EC2C67500C68BF0 /* GoogleService-Info.plist in Resources */,
 				BF9941001EBB74AA008A984B /* setting.png in Resources */,
 				BFAAABC01E778A28008EF199 /* Main.storyboard in Resources */,
 			);
@@ -335,7 +335,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF9940F71EBAC85E008A984B /* GoogleService-Info.plist in Resources */,
+				BF50242D1EC2C67500C68BF0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,7 +343,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF9940F81EBAC85E008A984B /* GoogleService-Info.plist in Resources */,
+				BF50242E1EC2C67500C68BF0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,7 +595,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -639,7 +639,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -658,6 +658,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tela.calendar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -672,6 +673,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tela.calendar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

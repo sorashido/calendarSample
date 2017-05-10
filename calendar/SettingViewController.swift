@@ -1,6 +1,7 @@
 import QuickTableViewController
+import GoogleSignIn
 
-class SettingViewController: QuickTableViewController {
+class SettingViewController: QuickTableViewController, GIDSignInUIDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,17 +21,18 @@ class SettingViewController: QuickTableViewController {
                 TapActionRow(title: "Exit", action: { [weak self] in self?.exit($0) }),
                 ]),
         ]
+        
+        /* google sign in*/
+        GIDSignIn.sharedInstance().uiDelegate = self
     }
     
-    // MARK: - Actions
-    
     private func showAlert(_ sender: Row) {
-        // ...
+        GIDSignIn.sharedInstance().signIn()
+        
     }
     
     private func exit(_ sender: Row) {
         // ...
         self.dismiss(animated: true, completion: nil)
     }
-    
 }

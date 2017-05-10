@@ -21,17 +21,11 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>google</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.345187523851-ujb3kb1ugv47ju62q8s84gr0miuuesnu</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>tela.calendar</string>
+				<string>com.googleusercontent.apps.345187523851-68p1he4hr0hgdf6eivvpu3c0l89sannf</string>
 			</array>
 		</dict>
 	</array>
