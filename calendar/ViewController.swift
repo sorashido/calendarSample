@@ -64,12 +64,12 @@ class ViewController: UIViewController{
         self.view.addSubview(listView)
         
         /* 設定画面へ移動*/
-        
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }    
+    }
 }
 
