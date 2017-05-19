@@ -136,14 +136,15 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
         gDayEvents.removeAll()
         for event in gEvents {
             let start = event.start!.dateTime ?? event.start!.date!
-            let end = event.end!.dateTime ?? event.start!.date!
+            let end = event.end!.dateTime ?? event.end!.date!
             let formatter: DateFormatter = DateFormatter()
             formatter.dateFormat = "yyyy/M/d"
-            if(Optional(formatter.string(from: start.date)) == bottomDay.text){
+
+            if(((formatter.string(from: start.date)) <= bottomDay.text!)
+              && ((formatter.string(from: end.date)) >= bottomDay.text!)){
                 gDayEvents.append(event)
             }
         }
-
         collectionView.reloadData()
         listView.reloadData()
     }
