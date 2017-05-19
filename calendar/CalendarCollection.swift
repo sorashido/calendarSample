@@ -131,8 +131,21 @@ class CalendarCollection:UIView,UICollectionViewDelegate,UICollectionViewDataSou
         cell.backgroundColor = UIColor.white//blackGray()#B64D3F
         
         bottomDay.text = selectedItem
-        
+
+        //選択した日付のイベントを入手
+        gDayEvents.removeAll()
+        for event in gEvents {
+            let start = event.start!.dateTime ?? event.start!.date!
+            let end = event.end!.dateTime ?? event.start!.date!
+            let formatter: DateFormatter = DateFormatter()
+            formatter.dateFormat = "yyyy/M/d"
+            if(Optional(formatter.string(from: start.date)) == bottomDay.text){
+                gDayEvents.append(event)
+            }
+        }
+
         collectionView.reloadData()
+        listView.reloadData()
     }
     
     // 月日の表示
@@ -193,6 +206,6 @@ extension UIColor {
     }
     
     class func lightGray() -> UIColor{
-        return UIColor(red: 192.0 / 255, green: 192.0 / 255, blue: 192.0 / 255, alpha: 1.0)
+        return UIColor(red: 150.0 / 255, green: 150.0 / 255, blue: 150.0 / 255, alpha: 1.0)
     }    
 }

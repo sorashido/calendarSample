@@ -2,10 +2,13 @@ import QuickTableViewController
 import GoogleSignIn
 import GoogleAPIClientForREST
 
-//var gEvents:[GTLRCalendar_Event] = []
+var gEvents:[GTLRCalendar_Event] = []
+var gDayEvents:[GTLRCalendar_Event] = []
+
 class SettingViewController: QuickTableViewController, GIDSignInDelegate, GIDSignInUIDelegate{
     
     private let service = GTLRCalendarService()
+    private let lockQueue = DispatchQueue(label: "Account lock serial queue")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,21 +55,21 @@ class SettingViewController: QuickTableViewController, GIDSignInDelegate, GIDSig
         }
     }
 
+    // Construct a query and get a list of upcoming events from the user calendar
+    func fetchEvents() {
+            let query = GTLRCalendarQuery_EventsList.query(withCalendarId: "primary")
+            query.maxResults = 100
+            query.timeMin = GTLRDateTime(date: Date())
+            query.singleEvents = true
+            query.orderBy = kGTLRCalendarOrderByStartTime
+            self.service.executeQuery(
+                query,
+                delegate: self,
+                didFinish: #selector(self.displayResultWithTicket(ticket:finishedWithObject:error:)))
+    }
+
     private func calendarSync(_ sender: Row){
         fetchEvents()
-    }
-    
-    // Construct a query and get a list of upcoming events from the user calendar
-    private func fetchEvents() {
-        let query = GTLRCalendarQuery_EventsList.query(withCalendarId: "primary")
-        query.maxResults = 10
-        query.timeMin = GTLRDateTime(date: Date())
-        query.singleEvents = true
-        query.orderBy = kGTLRCalendarOrderByStartTime
-        service.executeQuery(
-            query,
-            delegate: self,
-            didFinish: #selector(displayResultWithTicket(ticket:finishedWithObject:error:)))
     }
     
     // Display the start dates and event summaries in the UITextView
@@ -80,18 +83,8 @@ class SettingViewController: QuickTableViewController, GIDSignInDelegate, GIDSig
             return
         }
         
-//      gEvents = response.items!
         if let events = response.items, !events.isEmpty {
-            for event in events {
-                let start = event.start!.dateTime ?? event.start!.date!
-                let startString = DateFormatter.localizedString(
-                    from: start.date,
-                    dateStyle: .short,
-                    timeStyle: .short)
-//                outputText += "\(startString) - \(event.summary!)\n"
-            }
-        } else {
-//            outputText = "No upcoming events found."
+            gEvents = response.items!
         }
     }
     

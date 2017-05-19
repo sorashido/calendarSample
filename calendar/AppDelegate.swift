@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                  sourceApplication: sourceApplication,
                                                  annotation: annotation)
     }
-    
+
     @available(iOS 9.0, *)
     func application(_ app: UIApplication, open url: URL,
                      options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {

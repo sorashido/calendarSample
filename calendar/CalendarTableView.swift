@@ -33,6 +33,7 @@ class CalendarTableView:UITableView, UITableViewDelegate, UITableViewDataSource{
     }
 
     // MARK: - UITableViewDataSource
+    private var index = 0
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         var cell = tableView.dequeueReusableCell(withIdentifier:"BadgedCell") as? TDBadgedCell;
@@ -42,27 +43,25 @@ class CalendarTableView:UITableView, UITableViewDelegate, UITableViewDataSource{
         
         cell?.backgroundColor = .blackGray()
         cell?.textLabel!.textColor = .white
-        cell?.textLabel!.text = demoItems[indexPath.row]["title"]
-        cell?.badgeString = demoItems[indexPath.row]["badge"]!
-        
-        // Set accessory views for two badges
-        if(indexPath.row == 0) {
-            cell?.accessoryType = .disclosureIndicator
+        cell?.textLabel!.text = ""
+        cell?.badgeString = ""
+
+        if(indexPath.item==0){
+            cell?.textLabel!.text = "No contents"
         }
-        
-        if(indexPath.row == 1) {
-            cell?.badgeColor = .lightGray
-            cell?.badgeTextColor = .black
-            cell?.accessoryType = .checkmark
+
+        let formatter: DateFormatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        if gDayEvents.count > indexPath.item {
+            cell?.textLabel!.text = gDayEvents[indexPath.item].summary
+            let start = gDayEvents[indexPath.item].start?.dateTime
+            let end = gDayEvents[indexPath.item].end?.dateTime
+
+            if start != nil {
+                cell?.badgeString = formatter.string(from: start!.date)+"~"+formatter.string(from: end!.date)
+                cell?.badgeColor = .lightGray
+            }
         }
-        
-        // Set background colours for two badges
-        if(indexPath.row == 2) {
-            cell?.badgeColor = .orange
-        } else if(indexPath.row == 3) {
-            cell?.badgeColor = .red
-        }
-        
         return cell!
     }
     
@@ -72,7 +71,6 @@ class CalendarTableView:UITableView, UITableViewDelegate, UITableViewDataSource{
     }
     
     // MARK: - UITableViewDelegate
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // セルがタップされた時の処理
         print("タップされたセルのindex番号: \(indexPath.row)")

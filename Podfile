@@ -7,7 +7,7 @@ target 'calendar' do
 
   # Pods for calendar
 	pod 'Google/SignIn'
-    pod 'GoogleAPIClientForREST/Calendar'
+	pod 'GoogleAPIClientForREST/Calendar'
 	pod 'QuickTableViewController', '~> 0.5.0'
   target 'calendarTests' do
     inherit! :search_paths

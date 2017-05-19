@@ -13,10 +13,14 @@ var headerYear: UILabel!
 var headerMonth: UILabel!
 var bottomDay: UILabel!
 
-class ViewController: UIViewController{
+var calView = CalendarView()
+var listView = CalendarTableView()
+var settingView = SettingViewController()
+
+class ViewController: UIViewController {
 
     @IBAction func backToTop(segue: UIStoryboardSegue) {}
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,7 +30,7 @@ class ViewController: UIViewController{
         let margin = CGFloat(30)
 
         let frame = CGRect(x: 0, y: 80, width: self.view.frame.width, height: self.view.frame.height - listHeight)
-        let calView = CalendarView(frame: frame)
+        calView = CalendarView(frame: frame)
         self.view.addSubview(calView)
         
         /* 文字の追加 */
@@ -48,6 +52,7 @@ class ViewController: UIViewController{
         bottomDay.textAlignment = NSTextAlignment.center
         bottomDay.backgroundColor = .blackGray()
         bottomDay.textColor = .white
+
         // 上線の追加
         let topLine = CALayer()
         topLine.frame = CGRect(x: 0, y: 0, width: bottomDay.frame.width, height: 1.0)
@@ -60,13 +65,19 @@ class ViewController: UIViewController{
 
         /* Listの作成 */
         let frame2 = CGRect(x: 0, y: self.view.frame.height-listHeight + margin, width: self.view.frame.width, height: listHeight)
-        let listView = CalendarTableView(frame: frame2)
+        listView = CalendarTableView(frame: frame2)
         self.view.addSubview(listView)
-        
-        /* 設定画面へ移動*/
     }
     
-    
+    override func viewDidAppear(_ animated: Bool) {
+        DispatchQueue.global().async {
+            DispatchQueue.main.sync {
+                settingView.fetchEvents()
+            }
+        }
+        listView.reloadData()
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

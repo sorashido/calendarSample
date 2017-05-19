@@ -48,6 +48,7 @@ playground.xcworkspace
 Pods/
 GoogleService-Info.plist
 
+.idea/
 # Carthage
 #
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
