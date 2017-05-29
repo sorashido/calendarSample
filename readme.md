@@ -1,4 +1,4 @@
 # calendar
 swift3
 
-<img src="image/example.gif" alt="sample" width="300">
+<img src="image/image.PNG" alt="sample" width="300">
